@@ -1,7 +1,7 @@
-using GaussianCopulaMatching
+using CorrelationMatching
 using Documenter
 
-DocMeta.setdocmeta!(GaussianCopulaMatching, :DocTestSetup, :(using GaussianCopulaMatching); recursive = true)
+DocMeta.setdocmeta!(CorrelationMatching, :DocTestSetup, :(using CorrelationMatching); recursive = true)
 
 # Add titles of sections and overrides page titles
 const titles = Dict(
@@ -9,7 +9,7 @@ const titles = Dict(
     "91-developer.md" => "Developer docs",
 )
 
-function recursively_list_pages(folder; path_prefix="")
+function recursively_list_pages(folder; path_prefix = "")
     pages_list = Any[]
     for file in readdir(folder)
         if file == "index.md"
@@ -23,15 +23,15 @@ function recursively_list_pages(folder; path_prefix="")
 
         if isdir(fullpath)
             # If this is a folder, enter the recursion case
-            subsection = recursively_list_pages(fullpath; path_prefix=relpath)
+            subsection = recursively_list_pages(fullpath; path_prefix = relpath)
 
             # Ignore empty folders
             if length(subsection) > 0
                 title = if haskey(titles, relpath)
-                titles[relpath]
+                    titles[relpath]
                 else
-                @error "Bad usage: '$relpath' does not have a title set. Fix in 'docs/make.jl'"
-                relpath
+                    @error "Bad usage: '$relpath' does not have a title set. Fix in 'docs/make.jl'"
+                    relpath
                 end
                 push!(pages_list, title => subsection)
             end
@@ -59,12 +59,12 @@ function list_pages()
 end
 
 makedocs(;
-    modules = [GaussianCopulaMatching],
+    modules = [CorrelationMatching],
     authors = "Alex Knudson <alexk.706@gmail.com>",
-    repo = "https://github.com/adknudson/GaussianCopulaMatching.jl/blob/{commit}{path}#{line}",
-    sitename = "GaussianCopulaMatching.jl",
-    format = Documenter.HTML(; canonical = "https://adknudson.github.io/GaussianCopulaMatching.jl"),
+    repo = "https://github.com/adknudson/CorrelationMatching.jl/blob/{commit}{path}#{line}",
+    sitename = "CorrelationMatching.jl",
+    format = Documenter.HTML(; canonical = "https://adknudson.github.io/CorrelationMatching.jl"),
     pages = list_pages(),
 )
 
-deploydocs(; repo = "github.com/adknudson/GaussianCopulaMatching.jl")
+deploydocs(; repo = "github.com/adknudson/CorrelationMatching.jl")

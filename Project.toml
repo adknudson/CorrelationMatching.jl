@@ -1,10 +1,18 @@
-name = "GaussianCopulaMatching"
+name = "CorrelationMatching"
 uuid = "6d428436-4837-512f-9176-79c0a3537c26"
-authors = ["Alex Knudson <alexk.706@gmail.com>"]
 version = "0.1.0"
+authors = ["Alex Knudson <alexk.706@gmail.com>"]
 
 [workspace]
 projects = ["test", "docs"]
 
+[deps]
+CommonSolve = "38540f10-b2f7-11e9-35d8-d573e4eb0ff2"
+Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+
 [compat]
+CommonSolve = "0.2.14"
+Distributions = "0.25.131"
+LinearAlgebra = "1.13.0"
 julia = "1.10"

@@ -1,8 +1,8 @@
 ```@meta
-CurrentModule = GaussianCopulaMatching
+CurrentModule = CorrelationMatching
 ```
 
-# GaussianCopulaMatching
+# CorrelationMatching
 
-Documentation for [GaussianCopulaMatching](https://github.com/adknudson/GaussianCopulaMatching.jl).
+Documentation for [CorrelationMatching](https://github.com/adknudson/CorrelationMatching.jl).
 

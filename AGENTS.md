@@ -1,13 +1,13 @@
 # AGENTS.md
 
-Guidance for AI agents working in the GaussianCopulaMatching.jl repository.
+Guidance for AI agents working in the CorrelationMatching.jl repository.
 
 This is a bare-bones starting point. Expand it with project-specific paths,
 commands, and conventions as the package grows.
 
 ## Overview
 
-GaussianCopulaMatching.jl is a Julia package. Source lives in `src/` and tests in `test/`.
+CorrelationMatching.jl is a Julia package. Source lives in `src/` and tests in `test/`.
 
 ## Development commands
 

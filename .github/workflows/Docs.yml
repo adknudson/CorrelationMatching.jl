@@ -45,9 +45,9 @@ jobs:
         run: |
           julia --project=docs -e '
             using Documenter: DocMeta, doctest
-            using GaussianCopulaMatching
-            DocMeta.setdocmeta!(GaussianCopulaMatching, :DocTestSetup, :(using GaussianCopulaMatching); recursive=true)
-            doctest(GaussianCopulaMatching)'
+            using CorrelationMatching
+            DocMeta.setdocmeta!(CorrelationMatching, :DocTestSetup, :(using CorrelationMatching); recursive=true)
+            doctest(CorrelationMatching)'
       - name: Generate and deploy documentation
         run: julia --project=docs docs/make.jl
         env:
