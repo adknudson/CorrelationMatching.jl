@@ -4,16 +4,19 @@ using Distributions
 using LinearAlgebra
 using CommonSolve
 
-abstract type AbstractCorrelationMatric end
+abstract type AbstractTargetCorrelation end
 
-struct PearsonCorrelation <: AbstractCorrelationMatric end
-struct SpearmanCorrelation <: AbstractCorrelationMatric end
-struct KendallCorrelation <: AbstractCorrelationMatric end
+struct Pearson <: AbstractTargetCorrelation end
+struct KendallTau <: AbstractTargetCorrelation end
+struct SpearmanRho <: AbstractTargetCorrelation end
 
 abstract type AbstractCopula end
 struct GaussianCopula <: AbstractCopula end
 
+include("hermite.jl")
+include("factorial.jl")
+include("polynomial.jl")
+
 include("core/problem.jl")
-include("core/solution.jl")
 
 end

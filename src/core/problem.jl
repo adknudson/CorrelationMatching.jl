@@ -4,11 +4,11 @@
 Defines a correlation matching problem for a set of marginal distributions and a target correlation
 (either a scalar correlation for bivariate inputs or an N x N matrix for multivariate inputs).
 """
-struct CorrelationMatchingProblem{D, T, C <: AbstractCopula, M <: AbstractCorrelationMetric}
-    dists::D        # Tuple or Vector of UnivariateDistributions
-    target::T       # Real (scalar) or AbstractMatrix{<:Real}
-    copula::C       # Copula family (e.g. GaussianCopula())
-    metric::M       # Correlation metric (e.g. PearsonCorrelation())
+struct CorrelationMatchingProblem{D, T, C <: AbstractCopula, M <: AbstractTargetCorrelation}
+    dists::D  # Tuple or Vector of UnivariateDistributions
+    target::T # Real (scalar) or AbstractMatrix{<:Real}
+    copula::C # Copula family (e.g. GaussianCopula())
+    metric::M # Correlation metric (e.g. PearsonCorrelation())
 end
 
 function CorrelationMatchingProblem(
@@ -16,7 +16,7 @@ function CorrelationMatchingProblem(
         d2::UnivariateDistribution,
         target::Real;
         copula::AbstractCopula = GaussianCopula(),
-        metric::AbstractCorrelationMetric = PearsonCorrelation()
+        metric::AbstractTargetCorrelation = Pearson()
     )
     return CorrelationMatchingProblem((d1, d2), float(target), copula, metric)
 end
@@ -25,8 +25,9 @@ function CorrelationMatchingProblem(
         dists,
         target::AbstractMatrix{<:Real};
         copula::AbstractCopula = GaussianCopula(),
-        metric::AbstractCorrelationMetric = PearsonCorrelation()
+        metric::AbstractTargetCorrelation = Pearson()
     )
+    dists = collect(dists)
     n = length(dists)
     size(target) == (n, n) ||
         throw(
@@ -41,7 +42,7 @@ function CorrelationMatchingProblem(
         dists,
         target::Real;
         copula::AbstractCopula = GaussianCopula(),
-        metric::AbstractCorrelationMetric = PearsonCorrelation()
+        metric::AbstractTargetCorrelation = Pearson()
     )
     length(dists) == 2 ||
         throw(
@@ -68,3 +69,7 @@ Returns the dimension `n` of the correlation matching problem.
 """
 dimension(::CorrelationMatchingProblem{<:Any, <:Real}) = 2
 dimension(prob::CorrelationMatchingProblem{<:Any, <:AbstractMatrix}) = length(prob.dists)
+
+function strictly_continuous(prob::CorrelationMatchingProblem)
+
+end
