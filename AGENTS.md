@@ -2,28 +2,47 @@
 
 Guidance for AI agents working in the CorrelationMatching.jl repository.
 
-This is a bare-bones starting point. Expand it with project-specific paths,
-commands, and conventions as the package grows.
-
 ## Overview
 
 CorrelationMatching.jl is a Julia package. Source lives in `src/` and tests in `test/`.
+
+## Distributions.jl
+
+This package depends on `Distributions.jl` for its distributions interface. Whenever uncertain about their API, check the docs at <https://juliastats.org/Distributions.jl>
+
+Most of this package only relies on a few types:
+
+- `UnivariateDistribution`
+  - `ContinuousUnivariateDistribution`
+  - `DiscreteUnivariateDistribution`
+
+When writing unit tests, ensure that the following cases are considered:
+
+- Continuous distributions
+- Discrete distributions
+- Mix of continuous and discrete distributions
+
+Use a small set of common distributions for testing:
+
+- Continuous
+  - `Normal(mean, std)`
+  - `LogNormal(logmean, scale)`
+  - `Gamma(shape, scale)`
+  - `Beta(a, b)`
+- Discrete
+  - `Binomial(n, p)`
+  - `Poisson(rate)`
+  - `NegativeBinomial(r, p)`
+
+The following distributions are useful for testing edge cases:
+
+- `Cauchy(location, scale)` (has undefined variance)
+- `FDist(d1, d2)` (has undefined mean for `d2 <= 2`, and has undefined variance for `d2 <= 4`)
 
 ## Development commands
 
 - **Test**: `julia --project=. -e "using Pkg; Pkg.test()"`
 - **REPL with the project active**: `julia --project=.`
-
-### Testing via julia-mcp
-
-When the [julia-mcp](https://github.com/aplavin/julia-mcp) server is available,
-prefer it over spawning new Julia processes — the session stays alive between
-calls, avoiding recompilation. Use `<full path>/test` as `env_path`, load the
-runner once with `using TestItemRunner`, then run filtered tests:
-
-- All tests: `@run_package_tests verbose=false`
-- By test name: `@run_package_tests verbose=false filter=ti->contains(ti.name, "some name")`
-- By filename: `@run_package_tests verbose=false filter=ti->contains(ti.filename, "some-file")`
 
 ## Conventions
 
